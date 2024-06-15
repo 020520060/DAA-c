@@ -1,0 +1,27 @@
+def find_factors(n):
+    """ Recursively find the factors of n. """
+    def factors(n, i=1, factor_list=[]):
+        if i > n:
+            return factor_list
+        if n % i == 0:
+            factor_list.append(i)
+        return factors(n, i + 1, factor_list)
+    
+    return factors(n)
+
+def gcd(a, b):
+    """ Find GCD of two numbers using their factors. """
+    # Get the factors of both numbers
+    factors_a = find_factors(a)
+    factors_b = find_factors(b)
+    
+    # Find the common factors
+    common_factors = list(set(factors_a) & set(factors_b))
+    
+    # Return the greatest common factor
+    return max(common_factors)
+
+# Example usage
+a = 48
+b = 18
+print(f"The GCD of {a} and {b} is: {gcd(a, b)}")
