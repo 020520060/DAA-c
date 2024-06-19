@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
+    struct ListNode dummy;
+    struct ListNode *current = &dummy;
+    struct ListNode *p1 = l1, *p2 = l2;
+    while (p1 && p2) {
+        if (p1->val <= p2->val) {
+            current->next = p1;
+            p1 = p1->next;
+        } else {
+            current->next = p2;
+            p2 = p2->next;
+        }
+        current = current->next;
+    }
+    current->next = p1 ? p1 : p2;
+    return dummy.next;
+}
+struct ListNode* newNode(int val) {
+    struct ListNode* node = (struct ListNode*) malloc(sizeof(struct ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+void printList(struct ListNode* head) {
+    struct ListNode* current = head;
+    while (current != NULL) {
+        printf("%d -> ", current->val);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+int main() {
+    struct ListNode* list1 = newNode(1);
+    list1->next = newNode(2);
+    list1->next->next = newNode(4);
+    struct ListNode* list2 = newNode(1);
+    list2->next = newNode(3);
+    list2->next->next = newNode(4);
+    struct ListNode* mergedList = mergeTwoLists(list1, list2);
+    printf("Merged List: ");
+    printList(mergedList);
+    return 0;
+}
