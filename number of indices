@@ -1,0 +1,31 @@
+#include <stdio.h>
+void count_indices(int nums1[], int n, int nums2[], int m, int result[]) {
+    int answer1 = 0, answer2 = 0;
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            if (nums1[i] == nums2[j]) {
+                answer1++;
+                break;
+            }
+        }
+    }
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            if (nums2[i] == nums1[j]) {
+                answer2++;
+                break;
+            }
+        }
+    }
+    result[0] = answer1;
+    result[1] = answer2;
+}
+int main() {
+    int nums1[] = {2, 3, 2};
+    int nums2[] = {1, 2};
+    int result[2];
+    count_indices(nums1, 3, nums2, 2, result);
+    printf("[ %d, %d ]\n", result[0], result[1]);
+    return 0;
+}
